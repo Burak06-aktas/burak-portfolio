@@ -38,7 +38,7 @@ test("unverified technical focus areas are marked editable", () => {
     "python",
     "machine-learning",
     "data-analysis",
-    "aircraft-engineering"
+    "aircraft-maintenance"
   ]);
   assert.ok(portfolio.editableSkillAreas.every((area) => area.editable === true));
   assert.ok(portfolio.editableSkillAreas.every((area) => area.category.tr && area.category.en));

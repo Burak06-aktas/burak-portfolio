@@ -192,7 +192,7 @@ export const portfolio = {
     { id: "python", tr: "Python", en: "Python", category: { tr: "PROGRAMLAMA", en: "PROGRAMMING" }, editable: true },
     { id: "machine-learning", tr: "Makine öğrenmesi", en: "Machine learning", category: { tr: "YAPAY ZEKÂ", en: "ARTIFICIAL INTELLIGENCE" }, editable: true },
     { id: "data-analysis", tr: "Veri analizi", en: "Data analysis", category: { tr: "VERİ", en: "DATA" }, editable: true },
-    { id: "aircraft-engineering", tr: "Uçak mühendisliği", en: "Aircraft engineering", category: { tr: "HAVACILIK", en: "AVIATION" }, editable: true }
+    { id: "aircraft-maintenance", tr: "Uçak Bakım", en: "Aircraft Maintenance", category: { tr: "HAVACILIK", en: "AVIATION" }, editable: true }
   ],
   projects: []
 };
