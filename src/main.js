@@ -5,7 +5,7 @@ const languageButtons = [...document.querySelectorAll("[data-language]")];
 const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 const educationList = document.querySelector("#education-list");
-const skillTags = document.querySelector("#skill-tags");
+const skillAreas = document.querySelector("#skill-areas");
 const contactLinks = document.querySelector("#contact-links");
 const projectsContent = document.querySelector("#projects-content");
 const verifiedSkill = document.querySelector("#verified-skill");
@@ -94,23 +94,41 @@ function renderEducation(language, dictionary) {
 }
 
 function renderSkills(language, dictionary) {
-  skillTags.replaceChildren();
+  skillAreas.replaceChildren();
 
   portfolio.editableSkillAreas
     .filter((item) => item.editable)
-    .forEach((item) => {
-      const tag = document.createElement("li");
-      tag.className = "skill-tag";
+    .forEach((item, index) => {
+      const card = document.createElement("li");
+      card.className = "skill-area-card";
 
-      const label = document.createElement("span");
+      const meta = document.createElement("div");
+      meta.className = "skill-area-meta";
+      const category = document.createElement("span");
+      category.className = "skill-area-category";
+      category.textContent = item.category[language];
+      const number = document.createElement("span");
+      number.className = "skill-area-number";
+      number.setAttribute("aria-hidden", "true");
+      number.textContent = `0${index + 1}`;
+      meta.append(category, number);
+
+      const label = document.createElement("h4");
+      label.className = "skill-area-title";
       label.textContent = item[language];
 
       const status = document.createElement("span");
       status.className = "skill-tag-status";
-      status.textContent = dictionary["skills.focusLabel"];
 
-      tag.append(label, status);
-      skillTags.append(tag);
+      const statusDot = document.createElement("span");
+      statusDot.className = "skill-area-status-dot";
+      statusDot.setAttribute("aria-hidden", "true");
+      const statusLabel = document.createElement("span");
+      statusLabel.textContent = dictionary["skills.focusLabel"];
+      status.replaceChildren(statusDot, statusLabel);
+
+      card.append(meta, label, status);
+      skillAreas.append(card);
     });
 }
 

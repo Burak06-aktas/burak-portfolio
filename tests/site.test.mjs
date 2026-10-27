@@ -33,13 +33,15 @@ test("optional contact details and project examples stay unpublished until suppl
   assert.deepEqual(portfolio.projects, []);
 });
 
-test("unverified technical areas are marked editable", () => {
+test("unverified technical focus areas are marked editable", () => {
   assert.deepEqual(portfolio.editableSkillAreas.map((area) => area.id), [
     "python",
     "machine-learning",
-    "artificial-intelligence"
+    "data-analysis",
+    "aircraft-engineering"
   ]);
   assert.ok(portfolio.editableSkillAreas.every((area) => area.editable === true));
+  assert.ok(portfolio.editableSkillAreas.every((area) => area.category.tr && area.category.en));
 });
 
 test("the requested local aviation image is present for the production build", async () => {
