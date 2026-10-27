@@ -16,6 +16,7 @@ const requiredFiles = [
   "src/main.js",
   "src/content.js",
   "src/styles.css",
+  "images/aviation-hud-blueprint.png",
   "cv/cv-mehmet-burak-aktas-tr.pdf",
   "cv/cv-mehmet-burak-aktas-en.pdf",
   "favicon.svg"

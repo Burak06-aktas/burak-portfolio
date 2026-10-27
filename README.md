@@ -11,7 +11,7 @@ Site, CV’de doğrulanan eğitim, staj ve Boeing parça montajı bilgisini kull
 - Semantik HTML, CSS ve ES modülleri kullanan bağımlılıksız statik web sitesi
 - Yerel geliştirme sunucusu ve statik çıktı üretimi için Node.js yerleşik modülleri
 - Güvenli Türkçe ve İngilizce web CV’leri için ReportLab ile oluşturulmuş PDF dosyaları
-- Harici yazı tipi, görsel, izleyici veya çalışma zamanı paketi yoktur
+- Harici görsel URL'si, yazı tipi, izleyici veya çalışma zamanı paketi yoktur; havacılık görseli yerel PNG dosyasından yüklenir
 
 ## Yerel çalıştırma
 

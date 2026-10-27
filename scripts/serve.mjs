@@ -33,7 +33,7 @@ const server = createServer(async (request, response) => {
   }
 
   const relativePath = pathname === "/" ? "index.html" : pathname.replace(/^\/+/, "");
-  const requestedFile = path.resolve(requestedRoot, relativePath);
+  let requestedFile = path.resolve(requestedRoot, relativePath);
   const pathFromRoot = path.relative(requestedRoot, requestedFile);
 
   if (pathFromRoot.startsWith("..") || path.isAbsolute(pathFromRoot) || pathFromRoot.split(path.sep).some((part) => part.startsWith("."))) {
@@ -45,8 +45,26 @@ const server = createServer(async (request, response) => {
   try {
     fileInfo = await stat(requestedFile);
   } catch {
-    response.writeHead(404).end("Not found");
-    return;
+    if (requestedRoot !== projectRoot) {
+      response.writeHead(404).end("Not found");
+      return;
+    }
+
+    const publicRoot = path.join(projectRoot, "public");
+    const publicFile = path.resolve(publicRoot, relativePath);
+    const pathFromPublicRoot = path.relative(publicRoot, publicFile);
+    if (pathFromPublicRoot.startsWith("..") || path.isAbsolute(pathFromPublicRoot)) {
+      response.writeHead(404).end("Not found");
+      return;
+    }
+
+    try {
+      fileInfo = await stat(publicFile);
+      requestedFile = publicFile;
+    } catch {
+      response.writeHead(404).end("Not found");
+      return;
+    }
   }
 
   if (!fileInfo.isFile()) {

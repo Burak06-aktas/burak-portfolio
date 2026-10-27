@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
+import { stat } from "node:fs/promises";
+import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 import { portfolio, translations } from "../src/content.js";
+
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 test("Turkish and English provide the same interface keys", () => {
   assert.deepEqual(Object.keys(translations.tr).sort(), Object.keys(translations.en).sort());
@@ -35,4 +40,11 @@ test("unverified technical areas are marked editable", () => {
     "artificial-intelligence"
   ]);
   assert.ok(portfolio.editableSkillAreas.every((area) => area.editable === true));
+});
+
+test("the requested local aviation image is present for the production build", async () => {
+  const imagePath = path.join(projectRoot, "public/images/aviation-hud-blueprint.png");
+  const imageInfo = await stat(imagePath);
+  assert.ok(imageInfo.isFile());
+  assert.ok(imageInfo.size > 0);
 });
