@@ -151,7 +151,7 @@ export const translations = {
 
 export const portfolio = {
   contact: {
-    email: "",
+    email: "m.burakk0644@gmail.com",
     linkedin: ""
   },
   education: [

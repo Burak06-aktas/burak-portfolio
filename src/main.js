@@ -192,7 +192,7 @@ function renderContacts(language, dictionary) {
   const linkedin = portfolio.contact.linkedin.trim();
 
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    entries.push({ href: `mailto:${email}`, label: dictionary["contact.email"] });
+    entries.push({ href: `mailto:${email}`, label: dictionary["contact.email"], value: email });
   }
 
   if (isLinkedInProfile(linkedin)) {
@@ -213,7 +213,8 @@ function renderContacts(language, dictionary) {
     const link = document.createElement("a");
     link.className = "contact-link";
     link.href = entry.href;
-    link.textContent = entry.label;
+    link.textContent = entry.value || entry.label;
+    if (entry.value) link.setAttribute("aria-label", `${entry.label}: ${entry.value}`);
     if (entry.external) {
       link.target = "_blank";
       link.rel = "noopener noreferrer";

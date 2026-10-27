@@ -3,6 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { portfolio } from "../src/content.js";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const html = await readFile(path.join(projectRoot, "index.html"), "utf8");
@@ -44,7 +45,10 @@ for (const relativePath of sourceFiles) {
 }
 
 const pageCopy = checkedText.join("\n");
-assert.doesNotMatch(pageCopy, /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i, "Personal email addresses should not be published by default");
+const publicEmails = [...pageCopy.matchAll(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)].map(([email]) => email);
+const configuredEmail = portfolio.contact.email.trim();
+if (configuredEmail) assert.match(configuredEmail, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "The optional contact email must be valid");
+assert.deepEqual(publicEmails, configuredEmail ? [configuredEmail] : [], "Only the explicitly configured contact email may be published");
 assert.doesNotMatch(pageCopy, /\b\d{11}\b/, "Identity numbers must not be included");
 assert.doesNotMatch(pageCopy, /\b\d{2}[./-]\d{2}[./-]\d{4}\b/, "Dates of birth must not be included");
 assert.doesNotMatch(pageCopy, /\b(?:053|054|055|050)\d{8}\b/, "Personal phone numbers must not be included");

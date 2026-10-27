@@ -27,8 +27,8 @@ test("the verified internship and education facts match the CV", () => {
   assert.equal(portfolio.education.length, 2);
 });
 
-test("optional contact details and project examples stay unpublished until supplied", () => {
-  assert.equal(portfolio.contact.email, "");
+test("the supplied email is available while optional LinkedIn and project examples stay unpublished", () => {
+  assert.equal(portfolio.contact.email, "m.burakk0644@gmail.com");
   assert.equal(portfolio.contact.linkedin, "");
   assert.deepEqual(portfolio.projects, []);
 });
